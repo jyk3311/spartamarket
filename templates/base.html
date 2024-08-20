@@ -8,13 +8,19 @@
 </head>
 
 <body>
-    <div class="navbar">
+    <div class="navbar"> 
         <h3>Hello {{request.user.username}}</h3>
-        <a href="{% url 'accounts:login' %}">로그인하러가기</a>
+        <!-- 만약 로그인이 되어있는지 확인했는데 되어 있다면 로그아웃 버튼만 보이게 처리-->
+        {% if request.user.is_authenticated %}
         <form action="{% url 'accounts:logout' %}" method="POST">
             {% csrf_token %}
             <button type="submit">로그아웃</button>
         </form>
+        <!-- 로그인이 안되어 있다면 로그인하러가기 버튼만 보이게 처리 -->
+        {% else %}
+        <a href="{% url 'accounts:login' %}">로그인하러가기</a>
+        <!-- 조건문 끝나면 endif -->
+        {% endif %}
 
     </div>
     <div class="container">
