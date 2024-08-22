@@ -22,6 +22,8 @@
         <form action="{% url 'accounts:logout' %}" method="POST">
             {% csrf_token %}
             <button type="submit">로그아웃</button>
+            <a href="{% url 'user:profile' username=request.user.username %}">내 프로필</a>
+
         </form>
         <!-- 로그인이 안되어 있다면 로그인하러가기 버튼만 보이게 처리 -->
         {% else %}
@@ -29,6 +31,7 @@
         <a href="{% url 'accounts:sign_up' %}">회원가입하기</a>
         <!-- 조건문 끝나면 endif -->
         {% endif %}
+
 
     </div>
     <div class="container">
