@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="ko">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>{{ member.username }}님의 프로필</title>
-</head>
+{% load static %} 
 
-<body>
+
+{% block content %}
+
     <h1>{{ member.username }}님의 프로필 페이지</h1>
     {% load static %}
     <img src="{% static 'accounts/user.png' %}" alt="user"> 
@@ -20,6 +18,5 @@
         </li>
         {% endfor %}
     </ul>
-</body>
-
-</html>
+    
+{% endblock content %}
