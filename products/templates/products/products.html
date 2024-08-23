@@ -19,5 +19,9 @@
 </a>
 
 {% endfor %}
-
+<form action="{% url 'products:search' %}">
+    <input type="text" name='message'>
+    <button type="submit">검색</button>
+    
+    </form>
 {% endblock content %}

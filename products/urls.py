@@ -11,4 +11,5 @@ urlpatterns = [
     path('<int:pk>/update/', views.update, name='update'),         # 게시글 번호/업데이트
     path("<int:pk>/delete/", views.delete, name='delete'),
     path('<int:pk>/like/', views.like, name='like'),
+    path("search/", views.search, name="search"),
 ]

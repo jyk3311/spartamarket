@@ -25,4 +25,21 @@
 </div>
 
 <a href="{% url 'accounts:homepage' %}">홈으로 돌아가기</a>
+    <!-- <h2>내가 등록한 물품들</h2>
+    <ul>
+        {% for item in items %}
+        <li>
+            {{ item.name }} : {{ item.description }} (등록일 : {{ item.created_at }})
+        </li>
+        {% endfor %}
+    </ul>
+
+    <form action="{% url 'products:post_upload'%}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        
+        <button type="submit">프로필사진 변경</button>
+
+# 경민님 코드 구현 후, 상의
+>>>>>>> main -->
 {% endblock content %}

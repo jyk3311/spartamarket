@@ -3,6 +3,8 @@ from .models import Article
 from django.views.decorators.http import require_http_methods, require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm
+from django.db.models import Q
+
 
 
 def products(request):
@@ -11,6 +13,17 @@ def products(request):
 		"articles": articles,
 
 	}
+	return render(request, "products/products.html", context)
+
+def search(request):
+	message = request.GET.get('message')
+	print(message)
+	articles = Article.objects.filter(
+	Q(title__icontains=message) | Q(content__icontains=message) | Q(author__username__icontains=message)).distinct()
+	context ={
+	"articles": articles,
+	}
+	print(articles)
 	return render(request, "products/products.html", context)
 
 
