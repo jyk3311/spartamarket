@@ -29,7 +29,6 @@
             {% csrf_token %}
             <button type="submit">로그아웃</button>
             <a href="{% url 'user:profile' username=request.user.username %}">내 프로필</a>
-            <a href="{% url 'products:products' %}"> 글 목록으로 이동 </a>
             <a href="{% url 'accounts:update' %}"> 회원정보변경 </a>
         </form>
         <!-- 로그인이 안되어 있다면 로그인하러가기 버튼만 보이게 처리 -->

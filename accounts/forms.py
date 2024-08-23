@@ -9,7 +9,7 @@ class CustomUserCreationForm(UserCreationForm):  # 회원가입 class
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
-        fields = (
+        fields = ( # 여기에 프로필 사진 변경 추가 maybe.. image?
             "email",
             "first_name",
             "last_name",
