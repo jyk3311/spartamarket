@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>post upload</h1>
+<form action="{% url 'products:post_upload'%}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    
+    <button type="submit">저장</button>
+
+</form>            
+<a href="{% url 'products:products'%}">목록</a>
+
+{% endblock content %}
