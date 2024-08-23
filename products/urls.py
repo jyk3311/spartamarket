@@ -12,6 +12,4 @@ urlpatterns = [
     path("<int:pk>/delete/", views.delete, name='delete'),
     path('<int:pk>/like/', views.like, name='like'),
     path("search/", views.search, name="search"),
-    
-
 ]

@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
 
 class Article(models.Model):
     image = models.ImageField(upload_to='images/', blank=True)
@@ -14,8 +14,7 @@ class Article(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='articles'
         ) # User클래스 , 연쇄적으로 삭제 , 별명
     like_users = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name='like_articles'
-        )
-
+    settings.AUTH_USER_MODEL, related_name='like_articles'
+    )
     def __str__(self):
         return self.title
