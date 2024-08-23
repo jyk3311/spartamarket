@@ -1,22 +1,28 @@
 {% extends 'base.html' %}
 
-{% load static %} 
-
-
 {% block content %}
+<h1>{{ member.username }}의 프로필 페이지</h1>
 
-    <h1>{{ member.username }}님의 프로필 페이지</h1>
-    {% load static %}
-    <img src="{% static 'accounts/user.png' %}" alt="user"> 
-    <p>가입일 : {{ member.date_joined }}</p>
+<div>
+    <h2>username : {{ member.username }}</h2>
+    <p>
+        팔로워 : {{ member.followers.count }}명
+        팔로잉 : {{ member.following.count }}명
+    </p>
+</div>
 
-    <h2>내가 등록한 물품들</h2>
-    <ul>
-        {% for item in items %}
-        <li>
-            {{ item.name }} : {{ item.description }} (등록일 : {{ item.created_at }})
-        </li>
-        {% endfor %}
-    </ul>
-    
+<div>
+    {% if request.user != member %}
+    <form action="{% url 'user:follow' member.pk %}" method="POST">
+        {% csrf_token %}
+        {% if user in member.followers.all %}
+        <button type="submit">언팔로우</button>
+        {% else %}
+        <button type="submit">팔로우</button>
+        {% endif %}
+    </form>
+    {% endif %}
+</div>
+
+<a href="{% url 'accounts:homepage' %}">홈으로 돌아가기</a>
 {% endblock content %}
