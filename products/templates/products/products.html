@@ -3,6 +3,15 @@
 {% block content %}
 <h1>    상품들 </h1>
 
+<!-- 정렬 선택  -->
+<form method="get" action="{% url 'products:products' %}">
+    <label for="sort">정렬 기준:</label>
+    <select name="sort" id="sort">
+        <option value="-created_at">최신순</option>
+    </select>
+    <button type="submit">정렬</button>
+</form>
+
 <!-- 로그인되어있으면 새로운 글 작성 -->
 {% if request.user.is_authenticated %}     
 <a href="{% url 'products:post_upload' %}">

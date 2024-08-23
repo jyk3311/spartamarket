@@ -8,7 +8,9 @@ from django.db.models import Q
 
 
 def products(request):
-	articles= Article.objects.all()
+	
+	sort_option = request.GET.get('sort', '-created_at')   # GET 요청으로 sort 매개변수값 가져옴/ 기본값은 '-created_at'
+	articles= Article.objects.all().order_by(sort_option)  # 사용자의 선택에 따라 정렬
 	context= {
 		"articles": articles,
 
