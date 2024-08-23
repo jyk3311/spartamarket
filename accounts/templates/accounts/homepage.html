@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
+<!-- static 파일을 사용 -->
+{% load static %} 
 
 {% block content %}
-    <h1>Sparta Market 에 오신것을 환영합니다!</h1>
+    <h1>Sparta Market 에 오신것을 환영합니다</h1>
+
+
+    <!-- user 프로필 페이지 만드는중 -->
+    <!-- static 파일에 있는 user.png 꺼내오기, art는 이미지를 꺼내오는데 실패하면 나오는 글자 -->
+    <img src="{% static 'accounts/user.png' %}" alt="user"> 
+
 
 {% endblock content %}
