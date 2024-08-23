@@ -18,5 +18,12 @@
         </li>
         {% endfor %}
     </ul>
-    
+
+    <form action="{% url 'products:post_upload'%}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        
+        <button type="submit">프로필사진 변경</button>
+
+
 {% endblock content %}

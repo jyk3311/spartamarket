@@ -8,14 +8,14 @@ class CustomUserCreationForm(UserCreationForm):  # 회원가입 class
         fields = UserCreationForm.Meta.fields + ()  # () 안에 추가로 넣을 것들 ex) 팔로우 등등등
 
 
-# class CustomUserChangeForm(UserChangeForm):
-#     class Meta:
-#         model = get_user_model()
-#         fields = fields = [
-#             "first_name",
-#             'last_name',
-#             'email',
-#         ]
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = get_user_model()
+        fields = fields = [
+            "first_name",
+            'last_name',
+            'email',
+        ]
 
 #         def __init__(self, *args, **kwargs):
 #             super().__init__(*args, **kwargs)
