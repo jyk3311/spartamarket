@@ -56,6 +56,7 @@ def post_upload(request):              # 게시물 업로드 함수
 
 def post_detail(request, pk):
 	product = get_object_or_404(Article, pk=pk)
+	product.update_counter()       # 조회수 증가
 	context = {
 	"product": product,
 	}

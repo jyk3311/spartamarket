@@ -10,11 +10,12 @@
 {% else %}
 <button type='submit' class='btn btn-link text-danger'><i class="fa-regular fa-heart"></i></button>
 {% endif %}
-    
+
+<p>조회수: {{ product.n_hit }}</p> 
 </form>
 <p>작성자: <a href="{% url 'user:profile' product.author%}">{{product.author.username }}</a></p>  
 <p>금액: {{product.price}}</p>
-<p>내용: {{ product.content }}</p>
+<p>내용: {{ product.content }}</p>      
 <p>작성일시: {{ product.created_at }}</p>
 <p>수정일시: {{ product.updated_at }}</p>
 
