@@ -10,4 +10,5 @@ urlpatterns = [
     path("post_upload/", views.post_upload, name = "post_upload"),  # 물건 게시글 작성 페이지 urlpatterns
     path('<int:pk>/update/', views.update, name='update'),         # 게시글 번호/업데이트
     path("<int:pk>/delete/", views.delete, name='delete'),
+    path('<int:pk>/like/', views.like, name='like'),
 ]

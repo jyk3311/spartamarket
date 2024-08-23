@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Article   
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm
 
@@ -70,4 +70,17 @@ def delete(request, pk):
 	if request.user.is_authenticated and article.author == request.user:
 		article.delete()
 		return redirect("products:products")
-		
+	
+
+
+@require_POST
+def like(request, pk):
+	if request.user.is_authenticated:
+		product = get_object_or_404(Article, pk=pk)
+		# 지금 로그인한 유저가 이 글을 좋아요 했던게 테이블에 있다면
+		if product.like_users.filter(pk=request.user.pk).exists():
+			product.like_users.remove(request.user) # 좋아요 취소
+		else:
+			product.like_users.add(request.user) # 테이블에 없으니까 좋아요 생성
+		return redirect('products:post_detail', product.pk)
+	return redirect('accounts:login')		

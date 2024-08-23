@@ -3,8 +3,16 @@
 {% block content %}
 <h2>글 상세 페이지</h2>
 <p>제목: {{ product.title }}</p>
-<!-- 작성자명 나오지 않는 오류 -->
-<p>작성자: {{article.author.username }}</p>  
+<form action="{% url 'products:like' product.pk %}" method="POST">
+{% csrf_token %}
+{% if request.user in product.like_users.all %}
+<button type='submit' class='btn btn-link text-danger'><i class="fa-solid fa-heart"></i></button>
+{% else %}
+<button type='submit' class='btn btn-link text-danger'><i class="fa-regular fa-heart"></i></button>
+{% endif %}
+    
+</form>
+<p>작성자: {{product.author.username }}</p>  
 <p>금액: {{product.price}}</p>
 <p>내용: {{ product.content }}</p>
 <p>작성일시: {{ product.created_at }}</p>
@@ -14,7 +22,7 @@
 
 <a href="{% url 'products:products' %}">목록 보기</a><br>
 
-{% if user == article.author %}
+{% if user == product.author %}
 <!-- 게시글 번호도 같이 업데이트 넘겨줌-->
 <a href="{% url 'products:update' product.pk%}">
     <button>수정하기</button>
