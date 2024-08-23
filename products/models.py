@@ -18,6 +18,7 @@ class Article(models.Model):
         )
     n_hit = models.PositiveIntegerField(default=0)  # 조회수 필드 추가(0부터 시작해 양의 정수만)
 
+
     def __str__(self):
         return self.title
     
@@ -25,3 +26,8 @@ class Article(models.Model):
     def update_counter(self):
         self.n_hit += 1  
         self.save()
+
+    # 찜한 수 계산
+    @property
+    def like_count(self):
+        return self.like_users.count()  

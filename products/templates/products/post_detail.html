@@ -11,7 +11,9 @@
 <button type='submit' class='btn btn-link text-danger'><i class="fa-regular fa-heart"></i></button>
 {% endif %}
 
-<p>조회수: {{ product.n_hit }}</p> 
+<p>찜한 수: {{ product.like_count }}</p>
+<p>조회수: {{ product.n_hit }}</p>
+
 </form>
 <p>작성자: <a href="{% url 'user:profile' product.author%}">{{product.author.username }}</a></p>  
 <p>금액: {{product.price}}</p>
