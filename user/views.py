@@ -1,7 +1,7 @@
+from django.views.decorators.http import require_POST
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from user.temp.forms import ArticleForm
 
 # @login_required # 로그인을 해야만 화면이 보임.
 # def user(request):
@@ -11,9 +11,21 @@ from user.temp.forms import ArticleForm
 
 
 def profile(request, username):
-    member = get_object_or_404(get_user_model(), username = username) # db 탐색 후, 회원이 있는지 없는지 확인하는 작업 ##
+    member = get_object_or_404(get_user_model(), username=username)
     context = {
-        "member" : member,
+        "member": member,
     }
-    return render(request,'user/profile.html', context)
+    return render(request, "user/profile.html", context)
 
+
+@require_POST
+def follow(request, user_id):
+    if request.user.is_authenticated:
+        member = get_object_or_404(get_user_model(), id=user_id)
+        if request.user != member:
+            if request.user in member.followers.all():
+                member.followers.remove(request.user)
+            else:
+                member.followers.add(request.user)
+        return redirect("user:profile", member.username)
+    return redirect("accounts:login")

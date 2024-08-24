@@ -4,6 +4,7 @@
 <h2>글 상세 페이지</h2>
 <p>제목: {{ product.title }}</p>
 <form action="{% url 'products:like' product.pk %}" method="POST">
+
 {% csrf_token %}
 {% if request.user in product.like_users.all %}
 <button type='submit' class='btn btn-link text-danger'><i class="fa-solid fa-heart"></i></button>
@@ -14,6 +15,7 @@
 <p>찜한 수: {{ product.like_count }}</p>
 <p>조회수: {{ product.n_hit }}</p>
 
+
 </form>
 <p>작성자: <a href="{% url 'user:profile' product.author%}">{{product.author.username }}</a></p>  
 <p>금액: {{product.price}}</p>
@@ -21,19 +23,20 @@
 <p>작성일시: {{ product.created_at }}</p>
 <p>수정일시: {{ product.updated_at }}</p>
 
-
+<!-- # post detail에 링크가 없어요 -->
 
 <a href="{% url 'products:products' %}">목록 보기</a><br>
 
 {% if user == product.author %}
 <!-- 게시글 번호도 같이 업데이트 넘겨줌-->
+<br>
 <a href="{% url 'products:update' product.pk%}">
     <button>수정하기</button>
-</a> 
-
+</a>
 <form action="{% url 'products:delete' product.pk %}" method="POST">
-{% csrf_token %}
-<input type="submit" value="삭제">
+    {% csrf_token %}
+    <br>
+    <input type="submit" value="삭제">
 </form>
 {% endif %}
 {% endblock content %}

@@ -99,6 +99,4 @@ def like(request, pk):
 		else:
 			product.like_users.add(request.user) # 테이블에 없으니까 좋아요 생성
 		return redirect('products:post_detail', product.pk)
-	return redirect('accounts:login')		
-
-
+	return redirect('accounts:login')

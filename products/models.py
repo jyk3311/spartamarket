@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
 
 class Article(models.Model):
     image = models.ImageField(upload_to='images/', blank=True)
@@ -17,6 +17,7 @@ class Article(models.Model):
         settings.AUTH_USER_MODEL, related_name='like_articles'
         )
     n_hit = models.PositiveIntegerField(default=0)  # 조회수 필드 추가(0부터 시작해 양의 정수만)
+
 
 
     def __str__(self):
