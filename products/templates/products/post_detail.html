@@ -4,17 +4,22 @@
 <h2>글 상세 페이지</h2>
 <p>제목: {{ product.title }}</p>
 <form action="{% url 'products:like' product.pk %}" method="POST">
-    {% csrf_token %}
-    {% if request.user in product.like_users.all %}
-    <button type='submit' class='btn btn-link text-danger'><i class="fa-solid fa-heart"></i></button>
-    {% else %}
-    <button type='submit' class='btn btn-link text-danger'><i class="fa-regular fa-heart"></i></button>
-    {% endif %}
+
+{% csrf_token %}
+{% if request.user in product.like_users.all %}
+<button type='submit' class='btn btn-link text-danger'><i class="fa-solid fa-heart"></i></button>
+{% else %}
+<button type='submit' class='btn btn-link text-danger'><i class="fa-regular fa-heart"></i></button>
+{% endif %}
+
+<p>찜한 수: {{ product.like_count }}</p>
+<p>조회수: {{ product.n_hit }}</p>
+
 
 </form>
 <p>작성자: <a href="{% url 'user:profile' product.author%}">{{product.author.username }}</a></p>  
 <p>금액: {{product.price}}</p>
-<p>내용: {{ product.content }}</p>
+<p>내용: {{ product.content }}</p>      
 <p>작성일시: {{ product.created_at }}</p>
 <p>수정일시: {{ product.updated_at }}</p>
 
