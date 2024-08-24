@@ -3,6 +3,10 @@
 {% block content %}
 <h2>글 상세 페이지</h2>
 <p>제목: {{ product.title }}</p>
+{% if product.image%}
+<img src="{{ product.image.url }}" alt="{{ product.image }}" width = "200">
+{% endif %}
+
 <form action="{% url 'products:like' product.pk %}" method="POST">
 
 {% csrf_token %}

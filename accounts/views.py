@@ -10,6 +10,7 @@ from .forms import CustomUserCreationForm, CustomUserChangeForm
 def homepage(request):
     return render(request, "accounts/homepage.html")
 
+
 @require_http_methods(['GET', 'POST'])  # GET, POST 만 받을수 있게 설정
 def sign_up(request):
     if request.method == 'POST':
@@ -26,6 +27,7 @@ def sign_up(request):
     }
     return render(request, "accounts/sign_up.html", context)
 
+
 @require_http_methods(['GET', 'POST'])  # GET, POST 만 받을수 있게 설정
 def login(request):  # 로그인
     if request.method == "POST":
@@ -41,10 +43,12 @@ def login(request):  # 로그인
     context = {"form": form}
     return render(request, "accounts/login.html", context)
 
+
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
     return redirect('accounts:homepage')
+
 
 @require_http_methods(["GET", "POST"])
 def update(request):
@@ -52,7 +56,7 @@ def update(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("index")
+            return redirect("accounts:homepage")
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {"form": form}
