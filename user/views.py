@@ -12,8 +12,12 @@ from django.contrib.auth import get_user_model
 
 def profile(request, username):
     member = get_object_or_404(get_user_model(), username=username)
+    articles = member.articles.all()
+    like_articles = member.like_articles.all()
     context = {
         "member": member,
+        "articles": articles,
+        "like_articles": like_articles,
     }
     return render(request, "user/profile.html", context)
 

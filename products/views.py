@@ -68,7 +68,7 @@ def update(request, pk):
     article = get_object_or_404(Article, pk=pk)    # 번호를 받아서 해당 글을 article 에 저장
     if request.method == 'POST':
         # instance가 비어있으면 새로운것 생성, 아니면 기존 데이터 수정
-        form = ArticleForm(request.POST, instance=article)
+        form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid():
             form.save()
             return redirect("products:post_detail", article.pk)

@@ -23,6 +23,25 @@
     </form>
     {% endif %}
 </div>
+<div>
+    <h2>내가 등록한 물품들</h2>
+    <ul>
+        {% for article in articles %}
+        <li>
+            {{ article.title }} (등록일 : {{article.created_at}})
+        </li>
+        {% endfor %}
+    </ul>
+    <h2>내가 찜한 물품들</h2>
+    <ul>
+        {% for like_article in like_articles %}
+        <li>
+            {{ like_article.title }} (등록일 : {{like_article.created_at}})
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
 
 <a href="{% url 'accounts:homepage' %}">홈으로 돌아가기</a>
     <!-- <h2>내가 등록한 물품들</h2>
