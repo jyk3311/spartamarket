@@ -17,9 +17,9 @@
     <form action="{% url 'user:follow' member.pk %}" method="POST">
         {% csrf_token %}
         {% if user in member.followers.all %}
-        <button type="submit">언팔로우</button>
+        <button type='submit' class='btn btn-link text-primary'><i class="fa-solid fa-user"></i></button>
         {% else %}
-        <button type="submit">팔로우</button>
+        <button type='submit' class='btn btn-link text-primary'><i class="fa-regular fa-user"></i></button>
         {% endif %}
     </form>
     {% endif %}
