@@ -23,9 +23,9 @@
 <a href="{% url 'accounts:login' %}"><button>로그인하고 글 작성하기</button></a>
 {% endif %}
 
-{% for article in articles %}
-<a href="{% url 'products:post_detail' article.pk%}">
-    <p>[ {{article.id}} ]{{article.title}} </p>
+{% for product in products %}
+<a href="{% url 'products:post_detail' product.pk%}">
+    <p>[ {{product.id}} ]{{product.title}} </p>
 </a>
 
 {% endfor %}

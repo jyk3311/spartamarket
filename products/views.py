@@ -12,10 +12,10 @@ def products(request):
     # GET 요청으로 sort 매개변수값 가져옴/ 기본값은 '-created_at'
     sort_option = request.GET.get('sort', '-created_at')
     print(sort_option)
-    articles = Article.objects.all().order_by(
+    products = Article.objects.all().order_by(
         sort_option, '-created_at')  # 사용자의 선택에 따라 정렬
     context = {
-        "articles": articles,
+        "products": products,
 
     }
     return render(request, "products/products.html", context)
@@ -25,12 +25,11 @@ def products(request):
 def search(request):
     message = request.GET.get('message')
     print(message)
-    articles = Article.objects.filter(
+    products = Article.objects.filter(
         Q(title__icontains=message) | Q(content__icontains=message) | Q(author__username__icontains=message)).distinct()
     context = {
-        "articles": articles,
+        "products": products,
     }
-    print(articles)
     return render(request, "products/products.html", context)
 
 
@@ -42,9 +41,9 @@ def post_upload(request):              # 게시물 업로드 함수
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():  # 폼에 있는 데이터들이 유효하다면: 데이터 바인딩(DB 형식이랑 맞다면)
             # 데이터를 저장하고
-            article = form.save(commit=False)
-            article.author = request.user
-            article.save()
+            product = form.save(commit=False)
+            product.author = request.user
+            product.save()
             return redirect('products:products')
 
     else:
@@ -69,29 +68,29 @@ def post_detail(request, pk):
 
 @login_required
 def update(request, pk):
-    article = get_object_or_404(Article, pk=pk)    # 번호를 받아서 해당 글을 article 에 저장
+    product = get_object_or_404(Article, pk=pk)    # 번호를 받아서 해당 글을 product 에 저장
     if request.method == 'POST':
         # instance가 비어있으면 새로운것 생성, 아니면 기존 데이터 수정
-        form = ArticleForm(request.POST, request.FILES, instance=article)
+        form = ArticleForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            return redirect("products:post_detail", article.pk)
+            return redirect("products:post_detail", product.pk)
     else:
         # instance가 비어있으면 빈것 보여줌. 아니면 받은 인자값 채워서 보여줌
-        form = ArticleForm(instance=article)
+        form = ArticleForm(instance=product)
         context = {
             'form': form,
-            'article': article, }
+            'product': product, }
         return render(request, 'products/update.html', context)
 
 
 @login_required
 def delete(request, pk):
     # 일단 내용 받아오고
-    article = get_object_or_404(Article, pk=pk)
+    product = get_object_or_404(Article, pk=pk)
     # 로그인 되어 있고, 글 작성자와 로그인 유저가 같다면 삭제
-    if request.user.is_authenticated and article.author == request.user:
-        article.delete()
+    if request.user.is_authenticated and product.author == request.user:
+        product.delete()
         return redirect("products:products")
 
 
