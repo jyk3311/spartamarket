@@ -8,14 +8,13 @@ class CustomUserCreationForm(UserCreationForm):  # 회원가입 class
         fields = UserCreationForm.Meta.fields + ()  # () 안에 추가로 넣을 것들 ex) 팔로우 등등등
 
 
-
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
-        fields = (  # 여기에 프로필 사진 변경 추가 maybe.. image?
+        fields = (
             "email",
             "first_name",
             "last_name",
             "profile_image",
         )
-    exclude = ('password', )
+        exclude = ('password',)
