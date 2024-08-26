@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 #     return render(request, 'user.html', {'user': user, 'items': items})
 
 
+@login_required
 def profile(request, username):
     member = get_object_or_404(get_user_model(), username=username)
     articles = member.articles.all()
@@ -22,6 +23,7 @@ def profile(request, username):
     return render(request, "user/profile.html", context)
 
 
+@login_required
 @require_POST
 def follow(request, user_id):
     if request.user.is_authenticated:
