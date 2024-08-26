@@ -3,7 +3,8 @@
 {% block content %}
 <h2>글 상세 페이지</h2>
 <p>제목: {{ product.title }}</p>
-{% if product.image%}
+{% if product.image %}
+{% comment %} alt는 이미지 불러오기 실패할때 띄우는 속성값 {% endcomment %}
 <img src="{{ product.image.url }}" alt="{{ product.image }}" width = "200">
 {% endif %}
 

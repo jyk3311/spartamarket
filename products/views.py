@@ -26,6 +26,7 @@ def search(request):
     message = request.GET.get('message')
     print(message)
     products = Article.objects.filter(
+        # Q는 orm에서 and, or를 쓰고 싶을때 사용. 역참조시 __로 참조
         Q(title__icontains=message) | Q(content__icontains=message) | Q(author__username__icontains=message)).distinct()
     context = {
         "products": products,
@@ -109,10 +110,3 @@ def like(request, pk):
             product.like_users.add(request.user)  # 테이블에 없으니까 좋아요 생성
         return redirect('products:post_detail', product.pk)
     return redirect('accounts:login')
-
-
-def count(request, pk):
-    if request.user.is_authenticated:
-        product = get_object_or_404(Article, pk=pk)
-
-        return

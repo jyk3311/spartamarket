@@ -9,10 +9,10 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # 작가라는 필드(글과 연관)-
+    # 작가라는 필드(글과 연관, on_delete 속성값은 참조하고 있는 값을 어떻게 할건지 결정, CASCADE 연쇄적으로 삭제)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='articles'
-    )  # User클래스 , 연쇄적으로 삭제 , 별명
+    )
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name='like_articles'
     )
