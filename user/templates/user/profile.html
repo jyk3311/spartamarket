@@ -25,6 +25,7 @@
     {% endif %}
 </div>
 <div>
+    {% if request.user == member  %}
     <h2>내가 등록한 물품들</h2>
     <ul>
         {% for article in articles %}
@@ -45,6 +46,7 @@
         </li>
         {% endfor %}
     </ul>
+    {% endif %}
 
 </div>
 
