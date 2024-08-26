@@ -59,7 +59,10 @@ def post_upload(request):              # 게시물 업로드 함수
 @login_required
 def post_detail(request, pk):
     product = get_object_or_404(Article, pk=pk)
-    product.update_counter()       # 조회수 증가
+    if product.n_hit.filter(pk=request.user.pk).exists():
+        pass
+    else:
+        product.n_hit.add(request.user)
     context = {
         "product": product,
     }
@@ -106,3 +109,10 @@ def like(request, pk):
             product.like_users.add(request.user)  # 테이블에 없으니까 좋아요 생성
         return redirect('products:post_detail', product.pk)
     return redirect('accounts:login')
+
+
+def count(request, pk):
+    if request.user.is_authenticated:
+        product = get_object_or_404(Article, pk=pk)
+
+        return
