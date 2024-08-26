@@ -17,7 +17,6 @@ class CustomUserChangeForm(UserChangeForm):
             "last_name",
             "profile_image",
         )
-        exclude = ('password',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

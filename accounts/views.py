@@ -61,7 +61,7 @@ def update(request):
     if request.method == "POST":
         # 파일 입력시 인자값으로 request.FILES넘겨줘야함.
         form = CustomUserChangeForm(
-            request.POST, request.FILES)
+            request.POST, request.FILES, instance=request.user)
 
         if form.is_valid():
             form.save()

@@ -28,11 +28,11 @@
         
         {% if not request.user.profile_image %}
         <a href={% url "accounts:update" %}>
-            <img src="{% static 'accounts/user.png' %}" alt="user" width="100">
+            <img src="{% static 'accounts/user.png' %}" alt="user" width="50">
         </a>
         {% else %}
         <a href={% url "accounts:update" %}>
-            <img src="{{ request.user.profile_image.url }}" width="100">
+            <img src="{{ request.user.profile_image.url }}" width="50">
         </a>
         {% endif %}
 
