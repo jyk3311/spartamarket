@@ -10,4 +10,5 @@ urlpatterns = [
     path('login/', views.login, name="login"),  # 로그인
     path('logout/', views.logout, name="logout"),  # 로그아웃
     path("update/", views.update, name="update"),  # 업데이트
+    path("delete/", views.delete, name="delete"),  # 탈퇴
 ]

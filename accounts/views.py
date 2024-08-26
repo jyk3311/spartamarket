@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
-from django.views.decorators.http import require_POST, require_http_methods
+from django.views.decorators.http import require_http_methods, require_POST
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import (AuthenticationForm)
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 
-# Create your views here.
+
 def homepage(request):
     return render(request, "accounts/homepage.html")
 
@@ -50,10 +51,12 @@ def logout(request):
     return redirect('accounts:homepage')
 
 
+@login_required
 @require_http_methods(["GET", "POST"])
 def update(request):
     if request.method == "POST":
-        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
+        form = CustomUserChangeForm(
+            request.POST, request.FILES, instance=request.user)
 
         if form.is_valid():
             form.save()
@@ -62,3 +65,11 @@ def update(request):
         form = CustomUserChangeForm(instance=request.user)
     context = {"form": form}
     return render(request, "accounts/update.html", context)
+
+@login_required
+@require_POST
+def delete(request):
+    if request.user.is_authenticated:
+        request.user.delete()
+        auth_logout(request)
+    return redirect('accounts:homepage')

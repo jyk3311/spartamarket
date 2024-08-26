@@ -38,6 +38,10 @@
             <a href="{% url 'user:profile' username=request.user.username %}">내 프로필</a>
             <a href="{% url 'accounts:update' %}"> 회원정보변경 </a>
         </form>
+        <form action="{% url 'accounts:delete' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="회원탈퇴">
+        </form>
         <!-- 로그인이 안되어 있다면 로그인하러가기 버튼만 보이게 처리 -->
         {% else %}
         <a href="{% url 'accounts:login' %}">로그인 하러가기</a>

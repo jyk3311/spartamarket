@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm
 from django.db.models import Q
 
+
 @login_required
 def products(request):
 
@@ -18,6 +19,7 @@ def products(request):
 
     }
     return render(request, "products/products.html", context)
+
 
 @login_required
 def search(request):
@@ -54,6 +56,7 @@ def post_upload(request):              # 게시물 업로드 함수
 
     return render(request, "products/post_upload.html", context)
 
+
 @login_required
 def post_detail(request, pk):
     product = get_object_or_404(Article, pk=pk)
@@ -62,6 +65,7 @@ def post_detail(request, pk):
         "product": product,
     }
     return render(request, "products/post_detail.html", context)
+
 
 @login_required
 def update(request, pk):
@@ -80,6 +84,7 @@ def update(request, pk):
             'article': article, }
         return render(request, 'products/update.html', context)
 
+
 @login_required
 def delete(request, pk):
     # 일단 내용 받아오고
@@ -88,7 +93,8 @@ def delete(request, pk):
     if request.user.is_authenticated and article.author == request.user:
         article.delete()
         return redirect("products:products")
-    
+
+
 @login_required
 @require_POST
 def like(request, pk):
