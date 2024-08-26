@@ -18,16 +18,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from user import views
-
+from accounts.views import homepage
 urlpatterns = [
+    path('', homepage),  # 주소 열면 바로 홈페이지 보이도록
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('products/', include('products.urls')),
     path('user/', include('user.urls')),
 ]
 
-# 개발 모드일때 
+# 개발 모드일때
 if settings.DEBUG:
     # 사용자가 URL 요청을 보내면, django 는 Media_root에 저장된 파일을 찾아 반환
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
