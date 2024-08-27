@@ -1,5 +1,12 @@
 /* 여기는 stack 스타일을 결정하는 곳 입니다. */
 
-img{
-    width:200px;
+img {
+    width: 200px;
+}
+
+body {
+
+    background: url("/static/images/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
