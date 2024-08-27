@@ -3,7 +3,7 @@ from .models import Article
 from django.views.decorators.http import require_http_methods, require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm
-from django.db.models import Q
+from django.db.models import Q, Count
 
 
 @login_required
@@ -11,13 +11,20 @@ def products(request):
 
     # GET 요청으로 sort 매개변수값 가져옴/ 기본값은 '-created_at'
     sort_option = request.GET.get('sort', '-created_at')
-    print(sort_option)
-    products = Article.objects.all().order_by(
-        sort_option, '-created_at')  # 사용자의 선택에 따라 정렬
+    products = '-created_at'
+    if sort_option == '-created_at':
+        products = Article.objects.all().order_by(
+            '-created_at')
+    else:
+        # 테이블에 likes_count라는 컬럼이 없는데 우리가 조회할때 임시로 만들어서 쓰는게 annotate->order_by해서 products에 넣음
+        products = Article.objects.annotate(likes_count=Count("like_users")).order_by(
+            "-likes_count", "-created_at"
+        )
     context = {
         "products": products,
 
     }
+    print(products)
     return render(request, "products/products.html", context)
 
 
