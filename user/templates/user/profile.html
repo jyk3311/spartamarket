@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ member.username }}의 프로필 페이지</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- 중앙에서 왼쪽 정렬로 수정 -->
+            <br>
+            <h1 class="text-start">{{ member.username }}의 프로필 페이지</h1>
+            <br>
+            <p class="text-start">아이디 : {{ member.username }} <br>
+                가입일 : {{ member.date_joined }} <br>
+                팔로워 : {{ member.followers.count }}명
+                팔로잉 : {{ member.following.count }}명
+            </p>
+            
+            </div>
+            <div class="col-md-6">
+            </div>
+    </div>
 
-<div>
-    <h2>username : {{ member.username }}</h2>
-    <h2>가입일 : {{ member.date_joined }}</h2>
-    <p>
-        팔로워 : {{ member.followers.count }}명
-        팔로잉 : {{ member.following.count }}명
-    </p>
-</div>
-
-<div>
+<div  class="mt-3">
     {% if request.user != member %}
     <form action="{% url 'user:follow' member.pk %}" method="POST">
         {% csrf_token %}
@@ -24,22 +31,23 @@
     </form>
     {% endif %}
 </div>
-<div>
+
+<div class="mt-3">
     {% if request.user == member  %}
-    <h2>내가 등록한 물품들</h2>
+    <h4 class="text-start">내가 등록한 물품들</h4>
     <ul>
         {% for article in articles %}
-        <li>
+        <li class="text-start">
             <a href= {% url "products:post_detail" article.id %}>
                 {{ article.title }} (등록일 : {{article.created_at}})
             </a>
         </li>
         {% endfor %}
     </ul>
-    <h2>내가 찜한 물품들</h2>
+    <h4 class="text-start">내가 찜한 물품들</h4>
     <ul>
         {% for like_article in like_articles %}
-        <li>
+        <li class="text-start">
             <a href= {% url "products:post_detail" like_article.id %}>
                 {{ like_article.title }} (등록일 : {{like_article.created_at}})
             </a>
@@ -50,5 +58,5 @@
 
 </div>
 
-<a href="{% url 'accounts:homepage' %}">홈으로 돌아가기</a>
+<a href="{% url 'accounts:homepage' %}" class="btn btn-light mt-3">홈으로 돌아가기</a>
 {% endblock content %}

@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Sparta Market 에 오신 것을 환영합니다.</h1>
+<div class="container">
+    <!-- 중앙에서 왼쪽 정렬로 수정 -->
+    <h1 class="text-start">Sparta Market에 오신 것을 환영합니다.</h1>
 
-{% if request.user.is_authenticated %}
-<a href="{% url 'products:products' %}">글 목록</a>
-{% else %}
-<h3>로그인 후 이용가능</h3>
-{% endif %}
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'products:products' %}" class="btn btn-primary mt-3">글 목록</a>
+    {% else %}
+    <h3 class="text-start">로그인 후 이용 가능</h3>
+    {% endif %}
+</div>
 {% endblock content %}
