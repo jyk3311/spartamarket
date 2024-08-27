@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <div class="navbar">
+    <div class="navbar" style="background-color: #e3f2fd;">
         <h3>Hello {{request.user.username}}</h3>
         <!-- 만약 로그인이 되어있는지 확인했는데 되어 있다면 로그아웃 버튼만 보이게 처리-->
         {% if request.user.is_authenticated %}
@@ -36,23 +36,26 @@
         </a>
         {% endif %}
 
-        <form action="{% url 'accounts:logout' %}" method="POST">
+        <form action="{% url 'accounts:logout' %}" method="POST"  class="d-inline">
             {% csrf_token %}
-            <button type="submit">로그아웃</button>
-            <a href="{% url 'user:profile' username=request.user.username %}">내 프로필</a>
-            <a href="{% url 'accounts:update' %}"> 회원정보변경 </a>
+            <button type="submit" class="btn btn-light">로그아웃</button>
         </form>
-        <form action="{% url 'accounts:delete' %}" method="POST">
+        
+        <a href="{% url 'user:profile' username=request.user.username %}" class="btn btn-light">내 프로필</a>
+        <a href="{% url 'accounts:update' %}" class="btn btn-light"> 회원정보변경 </a>
+    
+        <form action="{% url 'accounts:delete' %}" method="POST" class="d-inline">
             {% csrf_token %}
-            <input type="submit" value="회원탈퇴">
+            <button type="submit" class="btn btn-light">회원탈퇴</button>
         </form>
+        
         <!-- 로그인이 안되어 있다면 로그인하러가기 버튼만 보이게 처리 -->
         {% else %}
-        <a href="{% url 'accounts:login' %}">로그인 하러가기</a>
-        <a href="{% url 'accounts:sign_up' %}">회원가입</a>
+        <a href="{% url 'accounts:login' %}" class="btn btn-light">로그인 하러가기</a>
+        <a href="{% url 'accounts:sign_up' %}" class="btn btn-light">회원가입</a>
         <!-- 조건문 끝나면 endif -->
         {% endif %}
-        <a href="{% url 'accounts:homepage' %}"> 홈페이지로 이동 </a>
+        <a href="{% url 'accounts:homepage' %}" class="btn btn-light"> 홈페이지로 이동 </a>
 
     </div>
     <div class="container">
