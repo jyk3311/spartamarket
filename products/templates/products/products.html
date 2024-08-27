@@ -1,17 +1,8 @@
 {% extends 'base.html' %}
-
+{% comment %} static부를땐 html마다 넣어줘야함 {% endcomment %}
+{% load static %}
 {% block content %}
 <h1>    상품들 </h1>
-
-<!-- 정렬 선택  -->
-<form method="get" action="{% url 'products:products' %}">
-    <label for="sort">정렬 기준:</label>
-    <select name="sort" id="sort">
-        <option value="-created_at">최신순</option>
-        <option value="-like_users">인기도순</option>
-    </select>
-    <button type="submit">정렬</button>
-</form>
 
 <!-- 로그인되어있으면 새로운 글 작성 -->
 {% if request.user.is_authenticated %}     
@@ -23,15 +14,59 @@
 <a href="{% url 'accounts:login' %}"><button>로그인하고 글 작성하기</button></a>
 {% endif %}
 
-{% for product in products %}
-<a href="{% url 'products:post_detail' product.pk%}">
-    <p>[ {{product.id}} ]{{product.title}} </p>
-</a>
+<div style="display: flex; justify-content: space-between;">
+    <div>
+        <!-- 정렬 선택  -->
+        <form method="get" action="{% url 'products:products' %}">
+            <label for="sort">정렬 기준:</label>
+            <select name="sort" id="sort">
+                <option value="-created_at">최신순</option>
+                <option value="-like_users">인기도순</option>
+            </select>
+            <button type="submit">정렬</button>
+        </form>
+    </div>
+    <div>
+        <form action="{% url 'products:search' %}">
+            <input type="text" name='message'>
+            <button type="submit">검색</button>
+            
+        </form>
+    </div>    
+</div>
 
-{% endfor %}
-<form action="{% url 'products:search' %}">
-    <input type="text" name='message'>
-    <button type="submit">검색</button>
-    
-    </form>
+{% comment %} 글 목록들 {% endcomment %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for product in products %}
+        <div class="col">
+            <div class="card shadow-sm">
+            <a href="{% url 'products:post_detail' product.pk%}">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.image }}" style="height: 225px; width: 100%; display: block;">
+                {% else %}
+                <img src="{% static 'images/no-image.jpg' %}" style="height: 225px; width: 100%; display: block;">
+                {% endif %}
+            </a>
+                <div class="card-body">
+                    <a href="{% url 'products:post_detail' product.pk%}">
+                        <p> {{product.title}} </p>
+                    </a>
+                    <p style="font-weight:bolder;"> {{product.price}}원 </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="like-hit_count">
+                            <p>찜 {{product.like_count}} · 조회 {{product.n_hit.count}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+</div>
+
+
 {% endblock content %}
