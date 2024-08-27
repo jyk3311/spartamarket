@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="container">
     <div class="row">
@@ -8,6 +8,11 @@
             <br>
             <h1 class="text-start">{{ member.username }}의 프로필 페이지</h1>
             <br>
+            {% if not member.profile_image %}
+                <img src="{% static 'accounts/user.png' %}" alt="user" class="profile-image">
+            {% else %}
+                <img src="{{ member.profile_image.url }}" class="profile-image">
+            {% endif %}
             <p class="text-start">아이디 : {{ member.username }} <br>
                 가입일 : {{ member.date_joined }} <br>
                 팔로워 : {{ member.followers.count }}명
