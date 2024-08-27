@@ -5,8 +5,33 @@ img {
 }
 
 body {
-
-    background: url("/static/images/background.png");
+    
+    background: url("/static/images/background2.png");
     background-repeat: no-repeat;
     background-size: cover;
+
+}
+
+h1 {
+    color: #333;
+    font-family: "Hahmlet", serif;
+    
+}
+
+.container   
+{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px;
+    border: 1px solid #ccc;    /*테두리 설정(두께/실선/색상)*/
+    border-radius: 5px;          /*모서리 둥글게*/
+    
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
 }
